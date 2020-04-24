@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
+public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> implements Filterable {
     private ArrayList<String> data;
 
     public MainAdapter(){
@@ -43,4 +43,8 @@ data=new ArrayList<>();
     }
 
 
+    @Override
+    public Filter getFilter() {
+        return null;
+    }
 }
