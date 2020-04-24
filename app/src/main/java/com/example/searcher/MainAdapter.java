@@ -3,12 +3,13 @@ package com.example.searcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.logging.Filter;
 
 public class MainAdapter extends RecyclerView.Adapter<MainViewHolder> {
     private ArrayList<String> data;
@@ -40,4 +41,6 @@ data=new ArrayList<>();
     public int getItemCount() {
         return data.size();
     }
+
+
 }

@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private MainAdapter adapter;
     private ArrayList<String> list;
     private EditText search;
-    SharedPreferences mSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,29 +28,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         list = new ArrayList<>();
         search = findViewById(R.id.edit_search);
-//        search.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                filter(s.toString());
-//            }
-//            public void filter(String text){
-//                ArrayList<Name> d=new ArrayList<>();
-//                for(Name : ){
-//                    if(d. ().contains(text)){ temp.add(d); }}
-//
-//            }
-//        });
-
+        textSearch();
         Button save = findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +39,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        }
+        }private void textSearch(){
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                s=s.toString().toLowerCase();
+                ArrayList<String > arrayList=new ArrayList<>();
+                for (int i = 0; i <list.size() ; i++) {
+                    String txt=list.get(i).toLowerCase();
+                    if (txt.contains(s)){
+                        arrayList.add(list.get(i));
+                    }
+                    adapter.update(list);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+
+
+            }
+
+        });
+
+    }
     @Override
     protected void onStop() {
         super.onStop();
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        adapter.update(list);
         SharedPreferences sh=getSharedPreferences("my_history",MODE_PRIVATE);
         String st=sh.getString("TextValue","null");
         String name="";
